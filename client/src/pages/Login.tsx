@@ -1,4 +1,4 @@
-import "./../styles/login.css";
+import "../styles/login.css";
 
 const Login = () => {
     return (
@@ -7,7 +7,7 @@ const Login = () => {
                 {[...Array(10)].map((_, i) => <div key={i}></div>)}
             </div>
 
-            <div className="card p-4 shadow w-100" style={{ maxWidth: "27em" }}>
+            <div className="card p-4 shadow w-100" style={{ maxWidth: "27rem" }}>
                 <h4 className="text-center mb-3">Добре дошли!</h4>
 
                 <form>
