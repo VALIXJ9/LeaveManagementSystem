@@ -153,15 +153,34 @@ const Employee = () => {
             {/* FOOTER */}
             <footer className="animated-waves-footer">
                 <div className="waves">
-                    <svg className="wave wave1" viewBox="0 0 2400 200">
-                        <path d="M0,100 C600,0 1800,200 2400,100 L2400,200 L0,200 Z" fill="#ffffff" />
-                    </svg>
-                    <svg className="wave wave2" viewBox="0 0 2400 200">
-                        <path d="M0,100 C600,50 1800,150 2400,100 L2400,200 L0,200 Z" fill="#ffffff" />
-                    </svg>
-                    <svg className="wave wave3" viewBox="0 0 2400 200">
-                        <path d="M0,100 C600,80 1800,120 2400,100 L2400,200 L0,200 Z" fill="#ffffff" />
-                    </svg>
+
+                    <div className="wave wave1">
+                        <svg viewBox="0 0 2400 200" preserveAspectRatio="none">
+                            <path d="M0,100 C600,0 1800,200 2400,100 L2400,200 L0,200 Z" fill="#ffffff" />
+                        </svg>
+                        <svg viewBox="0 0 2400 200" preserveAspectRatio="none">
+                            <path d="M0,100 C600,0 1800,200 2400,100 L2400,200 L0,200 Z" fill="#ffffff" />
+                        </svg>
+                    </div>
+
+                    <div className="wave wave2">
+                        <svg viewBox="0 0 2400 200" preserveAspectRatio="none">
+                            <path d="M0,100 C600,50 1800,150 2400,100 L2400,200 L0,200 Z" fill="#ffffff" />
+                        </svg>
+                        <svg viewBox="0 0 2400 200" preserveAspectRatio="none">
+                            <path d="M0,100 C600,50 1800,150 2400,100 L2400,200 L0,200 Z" fill="#ffffff" />
+                        </svg>
+                    </div>
+
+                    <div className="wave wave3">
+                        <svg viewBox="0 0 2400 200" preserveAspectRatio="none">
+                            <path d="M0,100 C600,80 1800,120 2400,100 L2400,200 L0,200 Z" fill="#ffffff" />
+                        </svg>
+                        <svg viewBox="0 0 2400 200" preserveAspectRatio="none">
+                            <path d="M0,100 C600,80 1800,120 2400,100 L2400,200 L0,200 Z" fill="#ffffff" />
+                        </svg>
+                    </div>
+
                 </div>
 
                 <div className="footer-content">
