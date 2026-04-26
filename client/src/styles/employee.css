@@ -1,0 +1,189 @@
+.logo {
+  float: left;
+  width: 4em;
+  height: auto;
+}
+
+body {
+  background-color: #0066ff;
+  color: black;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative; /* 🔧 ensures fixed elements use this as root */
+}
+
+.container {
+  flex: 1;
+}
+
+.info-box {
+  color: black;
+  text-align: center;
+  font-size: 1.25rem;
+}
+
+.info-box strong {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.count-number {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #0066ff;
+  display: block;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  word-break: break-word;
+}
+
+.table th,
+.table td {
+  word-break: break-word;
+  vertical-align: middle;
+  padding: 0.75rem;
+}
+
+.btn {
+  white-space: nowrap;
+}
+
+.animated-waves-footer {
+  position: relative;
+  overflow: hidden;
+  margin-top: auto;
+  height: 200px;
+  background: none;
+}
+
+.waves {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.wave {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  animation: waveMove 10s linear infinite;
+}
+
+.wave1 {
+  animation-delay: 0s;
+  opacity: 1;
+  z-index: 3;
+}
+
+.wave2 {
+  animation-delay: -3s;
+  opacity: 0.6;
+  z-index: 2;
+}
+
+.wave3 {
+  animation-delay: -6s;
+  opacity: 0.3;
+  z-index: 1;
+}
+
+@keyframes waveMove {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.footer-content {
+  position: relative;
+  z-index: 5;
+  padding: 40px 20px 20px;
+  color: white;
+  text-align: center;
+}
+
+/* Responsive Table for small screens */
+@media (max-width: 767.98px) {
+  .table thead {
+    display: none;
+  }
+
+  .table,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+    width: 100%;
+  }
+
+  .table tr {
+    margin-bottom: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .table td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+    text-align: left;
+    white-space: normal;
+  }
+
+  .table td:before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0.5rem;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    font-weight: bold;
+    text-align: left;
+    color: #6c757d;
+  }
+
+  .table td:nth-of-type(1):before { content: "Дата:"; }
+  .table td:nth-of-type(2):before { content: "От - До:"; }
+  .table td:nth-of-type(3):before { content: "Вид:"; }
+  .table td:nth-of-type(4):before { content: "Статус:"; }
+  .table td:nth-of-type(5):before { content: "Действия:"; }
+}
+
+
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: all;
+}
+
+.loader-overlay .spinner-border {
+  width: 5rem;
+  height: 5rem;
+}
+
+.hidden {
+  display: none !important;
+}

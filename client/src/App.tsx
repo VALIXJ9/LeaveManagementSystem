@@ -1,14 +1,19 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
+import Employee from "./pages/Employee";
+import Admin from "./pages/Admin";
 
 function App() {
-  return (
-      <BrowserRouter>
+    return (
         <Routes>
-          <Route path="/" element={<Login />} />
+            <Route path="/" element={<Login />} />
+            <Route path="/employee" element={<Employee />} />
+            <Route path="/admin" element={<Admin />} />
+
+            {/* ✅ fallback */}
+            <Route path="*" element={<Navigate to="/" />} />
         </Routes>
-      </BrowserRouter>
-  );
+    );
 }
 
 export default App;

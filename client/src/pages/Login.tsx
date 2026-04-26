@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
 
 const Login = () => {
     const [isLogin, setIsLogin] = useState(true);
+
+    const navigate = useNavigate();
 
     // STATE (must be INSIDE component)
     const [firstName, setFirstName] = useState("");
@@ -48,7 +51,14 @@ const Login = () => {
             return;
         }
 
+        localStorage.setItem("user", JSON.stringify(data.user));
         alert("Акаунтът е създаден успешно!");
+
+        if (data.user.is_admin) {
+            navigate("/admin");
+        } else {
+            navigate("/employee");
+        }
     };
 
     // LOGIN
@@ -70,7 +80,14 @@ const Login = () => {
             return;
         }
 
+        localStorage.setItem("user", JSON.stringify(data.user));
         alert("Вход успешен!");
+
+        if (data.user.is_admin) {
+            navigate("/admin");
+        } else {
+            navigate("/employee");
+        }
     };
 
     return (
