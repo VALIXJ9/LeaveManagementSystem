@@ -1,0 +1,99 @@
+.pageWrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #0066ff;
+    color: white;
+}
+
+/* Navbar */
+.logo {
+    width: 4em;
+    height: auto;
+}
+
+/* Main content grows */
+.containerFix {
+    flex: 1;
+}
+
+/* Table */
+.tableContainer {
+    background-color: white;
+    color: black;
+    border-radius: 8px;
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+/* Footer */
+.animatedWavesFooter {
+    position: relative;
+    overflow: hidden;
+    margin-top: auto;
+    height: 200px;
+    background: none;
+}
+
+.waves {
+    position: absolute;
+    bottom: 0;   /* KEY FIX */
+    left: 0;
+    width: 100%;
+    height: 100%; /* keep this */
+    overflow: hidden;
+}
+
+.wave {
+    position: absolute;
+    display: flex;
+    width: 200%;
+    height: 100%;
+    left: 0;
+}
+
+.wave svg {
+    width: 50%;
+    height: 100%;
+}
+
+/* Different speeds = smoother effect */
+.wave1 {
+    animation: waveMove 8s linear infinite;
+    opacity: 1;
+    z-index: 3;
+}
+
+.wave2 {
+    animation: waveMove 12s linear infinite;
+    opacity: 0.6;
+    z-index: 2;
+}
+
+.wave3 {
+    animation: waveMove 16s linear infinite;
+    opacity: 0.3;
+    z-index: 1;
+}
+
+@keyframes waveMove {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.footerContent {
+    position: relative;
+    z-index: 5;
+    padding: 40px 20px 20px;
+    color: white;
+    text-align: center;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+}

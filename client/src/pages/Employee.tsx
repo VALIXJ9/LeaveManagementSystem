@@ -49,7 +49,7 @@ const Employee = () => {
             </nav>
 
             {/* MAIN */}
-            <div className="container py-5">
+            <div className="container pt-5 pb-1">
                 <div className="bg-light border rounded p-4 mb-4">
 
                     <h3 className="text-center w-100">
@@ -184,7 +184,7 @@ const Employee = () => {
                 </div>
 
                 <div className="footer-content">
-                    <p>© 2025 Всички права запазени.</p>
+                    <p>© 2026 Всички права запазени.</p>
                 </div>
             </footer>
 
