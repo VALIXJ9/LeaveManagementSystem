@@ -12,13 +12,19 @@ const Employee = () => {
     const [returnDate, setReturnDate] = useState("");
     const [replacementEmployee, setReplacementEmployee] = useState("");
 
-    useEffect(() => {
-        if (!user) {
-            navigate("/");
-        }
-    }, [user, navigate]);
+    const [leaves, setLeaves] = useState<any[]>([]);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const fetchLeaves = async () => {
+        try {
+            const res = await fetch(`http://localhost:3000/api/leaves/${user.id}`);
+            const data = await res.json();
+            setLeaves(data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!fromDate || !toDate || !returnDate || !replacementEmployee) {
@@ -26,13 +32,44 @@ const Employee = () => {
             return;
         }
 
-        alert("Заявлението е изпратено (fake for now)");
+        try {
+            const res = await fetch("http://localhost:3000/api/leaves", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    user_id: user.id,
+                    from_date: fromDate,
+                    to_date: toDate,
+                    return_date: returnDate,
+                    leave_type: leaveType,
+                    replacement_employee: replacementEmployee
+                })
+            });
+
+            if (!res.ok) throw new Error();
+
+            alert("Заявлението е записано!");
+
+            fetchLeaves(); // refresh table
+        } catch {
+            alert("Грешка при запис");
+        }
     };
 
     const handleLogout = () => {
         localStorage.removeItem("user");
         navigate("/");
     };
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/");
+        } else {
+            fetchLeaves();
+        }
+    }, [user, navigate]);
 
     return (
         <div className="page-wrapper">
@@ -142,7 +179,18 @@ const Employee = () => {
                             </tr>
                             </thead>
                             <tbody>
-                            {/* later dynamic */}
+                            {leaves.map((leave) => (
+                                <tr key={leave.id}>
+                                    <td>{new Date(leave.created_at).toLocaleDateString()}</td>
+                                    <td>
+                                        {new Date(leave.from_date).toLocaleDateString()} -{" "}
+                                        {new Date(leave.to_date).toLocaleDateString()}
+                                    </td>
+                                    <td>{leave.leave_type}</td>
+                                    <td>{leave.status}</td>
+                                    <td>-</td>
+                                </tr>
+                            ))}
                             </tbody>
                         </table>
                     </div>
