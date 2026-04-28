@@ -45,3 +45,36 @@ export const getUserLeaves = async (req: Request, res: Response) => {
         res.status(500).json({ error: "Failed to fetch leaves" });
     }
 };
+
+//
+export const getAllLeaves = async (req: Request, res: Response) => {
+    try {
+        const leaves = await prisma.leaveRequest.findMany({
+            include: {
+                user: true
+            },
+            orderBy: { created_at: "desc" }
+        });
+
+        res.json(leaves);
+    } catch (err) {
+        res.status(500).json({ error: "Failed to fetch leaves" });
+    }
+};
+
+//
+export const updateLeaveStatus = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const { status } = req.body;
+
+        const updated = await prisma.leaveRequest.update({
+            where: { id: Number(id) },
+            data: { status }
+        });
+
+        res.json(updated);
+    } catch (err) {
+        res.status(500).json({ error: "Failed to update status" });
+    }
+};
