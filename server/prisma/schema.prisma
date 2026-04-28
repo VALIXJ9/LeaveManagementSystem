@@ -20,4 +20,20 @@ model User {
   password   String
   is_admin   Boolean  @default(false)
   created_at DateTime @default(now())
+
+  leave_requests LeaveRequest[]
+}
+
+model LeaveRequest {
+  id                    Int      @id @default(autoincrement())
+  user_id               Int
+  from_date             DateTime
+  to_date               DateTime
+  return_date           DateTime
+  leave_type            String
+  replacement_employee  String
+  status                String   @default("Pending")
+  created_at            DateTime @default(now())
+
+  user User @relation(fields: [user_id], references: [id])
 }
