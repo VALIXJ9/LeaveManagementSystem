@@ -112,7 +112,7 @@ body {
 .footer-content {
   position: relative;
   z-index: 5;
-  padding: 40px 20px 20px;
+  padding: 15px 20px 20px;
   color: white;
   text-align: center;
 }
@@ -163,7 +163,7 @@ body {
   .table td:nth-of-type(2):before { content: "От - До:"; }
   .table td:nth-of-type(3):before { content: "Вид:"; }
   .table td:nth-of-type(4):before { content: "Статус:"; }
-  .table td:nth-of-type(5):before { content: "Действия:"; }
+  .table td:nth-of-type(5):before { content: "Заместващ служител:"; }
 }
 
 
