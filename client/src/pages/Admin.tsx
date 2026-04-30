@@ -96,10 +96,10 @@ return (
                     <tr>
                         <th>#</th>
                         <th>Име на служител</th>
-                        <th>От</th>
-                        <th>До</th>
+                        <th>Период</th>
                         <th>Вид отпуск</th>
                         <th>Статус</th>
+                        <th>Заместващ служител</th>
                         <th>Действие</th>
                     </tr>
                     </thead>
@@ -107,25 +107,32 @@ return (
                     <tbody>
                     {applications.map((leave, index) => (
                         <tr key={leave.id}>
-                            <td>{index + 1}</td>
+                            <td data-label="#"> {index + 1} </td>
 
-                            <td>
+                            <td data-label="Име на служител">
                                 {leave.user.first_name} {leave.user.last_name}
                             </td>
 
-                            <td>
-                                {new Date(leave.from_date).toLocaleDateString("bg-BG")}
-                            </td>
-
-                            <td>
+                            <td data-label="Период">
+                                {new Date(leave.from_date).toLocaleDateString("bg-BG")} -{" "}
                                 {new Date(leave.to_date).toLocaleDateString("bg-BG")}
                             </td>
 
-                            <td>{leave.leave_type}</td>
+                            <td data-label="Вид отпуск">
+                                {leave.leave_type}
+                            </td>
 
-                            <td>{getBadge(leave.status)}</td>
+                            <td data-label="Статус">
+                                {getBadge(leave.status)}
+                            </td>
 
-                            <td>
+                            <td data-label="Заместващ служител">
+                                {leave.replacement_employee
+                                    ? `${leave.replacement_employee}`
+                                    : "Няма"}
+                            </td>
+
+                            <td data-label="Действие">
                                 {leave.status === "Pending" ? (
                                     <>
                                         <button

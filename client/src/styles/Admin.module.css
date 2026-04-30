@@ -96,4 +96,42 @@
 /* MOBILE TABLE FIX (ONLY ADMIN) */
 @media (max-width: 767.98px) {
 
+    /* hide header like employee page */
+    .tableFix thead {
+        display: none;
+    }
+
+    .tableFix,
+    .tableFix tbody,
+    .tableFix tr,
+    .tableFix td {
+        display: block;
+        width: 100%;
+    }
+
+    .tableFix tr {
+        margin-bottom: 1rem;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 0.5rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .tableFix td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        text-align: left;
+        white-space: normal;
+    }
+
+    /* 🔥 THIS IS THE KEY LINE */
+    .tableFix td::before {
+        content: attr(data-label) !important;
+        position: absolute;
+        left: 0.5rem;
+        width: 45%;
+        font-weight: bold;
+        color: #6c757d;
+    }
 }

@@ -160,7 +160,7 @@ body {
   }
 
   .table td:nth-of-type(1):before { content: "Дата:"; }
-  .table td:nth-of-type(2):before { content: "От - До:"; }
+  .table td:nth-of-type(2):before { content: "Период"; }
   .table td:nth-of-type(3):before { content: "Вид:"; }
   .table td:nth-of-type(4):before { content: "Статус:"; }
   .table td:nth-of-type(5):before { content: "Заместващ служител:"; }
