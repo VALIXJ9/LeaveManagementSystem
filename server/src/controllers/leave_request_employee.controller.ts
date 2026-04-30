@@ -46,7 +46,7 @@ export const getUserLeaves = async (req: Request, res: Response) => {
     }
 };
 
-//
+// GET LeaveRequests
 export const getAllLeaves = async (req: Request, res: Response) => {
     try {
         const leaves = await prisma.leaveRequest.findMany({
@@ -62,7 +62,7 @@ export const getAllLeaves = async (req: Request, res: Response) => {
     }
 };
 
-//
+// UPDATE LeaveRequestStatus
 export const updateLeaveStatus = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
@@ -76,5 +76,20 @@ export const updateLeaveStatus = async (req: Request, res: Response) => {
         res.json(updated);
     } catch (err) {
         res.status(500).json({ error: "Failed to update status" });
+    }
+};
+
+// DELETE LeaveRequest (Admin POV)
+export const deleteLeaveRequest = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+
+        await prisma.leaveRequest.delete({
+            where: { id: Number(id) }
+        });
+
+        res.json({ message: "Leave request deleted" });
+    } catch (err) {
+        res.status(500).json({ error: "Failed to delete leave request" });
     }
 };

@@ -106,8 +106,18 @@
     text-align: center;
 }
 
+/* admin-panel status section -> it centers the 'Обработено' string DESKTOP version */
+.processedActions {
+    justify-content: center; /* desktop default */
+}
+
 /* MOBILE TABLE FIX (ONLY ADMIN) */
 @media (max-width: 1200.98px) {
+
+    /* admin-panel status section -> it centers the 'Обработено' string MOBILE version */
+    .processedActions {
+        justify-content: flex-start; /* or space-between if you prefer */
+    }
 
     /* hide header like employee page */
     .tableFix thead {

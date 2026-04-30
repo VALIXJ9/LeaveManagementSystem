@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {
-    createLeaveRequest, getAllLeaves,
+    createLeaveRequest, deleteLeaveRequest, getAllLeaves,
     getUserLeaves, updateLeaveStatus
 } from "../controllers/leave_request_employee.controller.js";
 
@@ -10,3 +10,4 @@ leaveRoutes.post("/", createLeaveRequest);
 leaveRoutes.get("/", getAllLeaves);
 leaveRoutes.get("/:userId", getUserLeaves);
 leaveRoutes.put("/:id", updateLeaveStatus);
+leaveRoutes.delete("/:id", deleteLeaveRequest);

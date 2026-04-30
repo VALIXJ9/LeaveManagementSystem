@@ -43,31 +43,49 @@ const Admin = () => {
     const updateStatus = async (id: number, newStatus: string) => {
         try {
             const res = await fetch(`http://localhost:3000/api/leaves/${id}`, {
-    method: "PUT",
-        headers: {
-    "Content-Type": "application/json"
-},
-body: JSON.stringify({ status: newStatus })
-});
+            method: "PUT",
+                headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ status: newStatus })
+        });
 
-if (!res.ok) throw new Error();
+        if (!res.ok) throw new Error();
 
-fetchApplications();
-} catch {
-    alert("Грешка при обновяване");
-}
-};
+        fetchApplications();
+        } catch {
+            alert("Грешка при обновяване");
+        }
+    };
 
-const getBadge = (status: string) => {
-    switch (status) {
-        case "Approved":
-            return <span className="badge bg-success">Одобрено</span>;
-        case "Rejected":
-            return <span className="badge bg-danger">Отказано</span>;
-        default:
-            return <span className="badge bg-warning text-dark">В очакване</span>;
-    }
-};
+    const deleteApplication = async (id: number) => {
+        const confirmDelete = confirm("Сигурен ли си, че искаш да изтриеш заявката?");
+
+        if (!confirmDelete) return;
+
+        try {
+            const res = await fetch(`http://localhost:3000/api/leaves/${id}`, {
+                method: "DELETE"
+            });
+
+            if (!res.ok) throw new Error();
+
+            fetchApplications(); // refresh table
+        } catch {
+            alert("Грешка при изтриване");
+        }
+    };
+
+    const getBadge = (status: string) => {
+        switch (status) {
+            case "Approved":
+                return <span className="badge bg-success">Одобрено</span>;
+            case "Rejected":
+                return <span className="badge bg-danger">Отказано</span>;
+            default:
+                return <span className="badge bg-warning text-dark">В очакване</span>;
+        }
+    };
 
 return (
     <div className={styles.pageWrapper}>
@@ -159,7 +177,16 @@ return (
                                         </button>
                                     </>
                                 ) : (
-                                    "Обработено"
+                                    <div className={`d-flex align-items-center gap-2 ${styles.processedActions}`}>
+                                        <span>Обработено</span>
+
+                                        <button
+                                            className="btn btn-danger btn-sm"
+                                            onClick={() => deleteApplication(leave.id)}
+                                        >
+                                            ✕
+                                        </button>
+                                    </div>
                                 )}
                             </td>
                         </tr>
