@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/Admin.module.css";
+import hero from "../assets/favicon.svg";
 
 const Admin = () => {
     const navigate = useNavigate();
@@ -72,14 +73,22 @@ return (
     <div className={styles.pageWrapper}>
 
         {/* NAVBAR */}
-        <nav className="navbar bg-dark px-3">
-                <span className="navbar-brand">
-                    <img src="/pics/logo-1.png" className={styles.logo} />
-                </span>
+        <nav className="navbar bg-dark px-4">
+            <div className="container-fluid d-flex justify-content-between align-items-center">
 
-            <button className="btn btn-light" onClick={handleLogout}>
-                Изход
-            </button>
+                {/* LEFT */}
+                <div className="d-flex align-items-center">
+                    <img src={hero} className="logo" />
+                </div>
+
+                {/* RIGHT */}
+                <div className="d-flex align-items-center">
+                    <button className="btn btn-light" onClick={handleLogout}>
+                        Изход
+                    </button>
+                </div>
+
+            </div>
         </nav>
 
         {/* MAIN */}

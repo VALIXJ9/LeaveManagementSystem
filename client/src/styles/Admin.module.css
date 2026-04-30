@@ -8,8 +8,21 @@
 
 /* Navbar */
 .logo {
-    width: 4em;
-    height: auto;
+    height: 40px;
+    width: auto;
+}
+
+.navbar .container-fluid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .navbar .container-fluid {
+        padding-left: 6rem;
+        padding-right: 6rem;
+    }
 }
 
 /* Main content grows */
@@ -94,7 +107,7 @@
 }
 
 /* MOBILE TABLE FIX (ONLY ADMIN) */
-@media (max-width: 767.98px) {
+@media (max-width: 1200.98px) {
 
     /* hide header like employee page */
     .tableFix thead {

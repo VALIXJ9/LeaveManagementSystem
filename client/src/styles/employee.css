@@ -1,7 +1,19 @@
 .logo {
-  float: left;
-  width: 4em;
-  height: auto;
+  height: 40px;
+  width: auto;
+}
+
+.navbar .container-fluid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .navbar .container-fluid {
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
 }
 
 body {
