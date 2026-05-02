@@ -17,6 +17,24 @@ const Employee = () => {
 
     const [leaves, setLeaves] = useState<any[]>([]);
 
+    const [daysInfo, setDaysInfo] = useState({
+        total: 30,
+        used: 0,
+        remaining: 30
+    });
+
+    const fetchDays = async () => {
+        if (!user) return;
+
+        try {
+            const res = await fetch(`http://localhost:3000/api/leaves/remaining/${user.id}`);
+            const data = await res.json();
+            setDaysInfo(data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     const getStatusClass = (status: string) => {
         switch (status) {
             case "Pending":
@@ -48,69 +66,84 @@ const Employee = () => {
 
         try {
             const res = await fetch(`http://localhost:3000/api/leaves/${user.id}`);
-    const data = await res.json();
-setLeaves(data);
-} catch (err) {
-    console.error(err);
-}
-};
+            const data = await res.json();
+            setLeaves(data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
-const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
 
-    if (!fromDate || !toDate || !returnDate || !replacementEmployee) {
-        alert("Моля, попълнете всички полета.");
-        return;
-    }
-
-    try {
-        const res = await fetch("http://localhost:3000/api/leaves", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                user_id: user.id,
-                from_date: fromDate,
-                to_date: toDate,
-                return_date: returnDate,
-                leave_type: leaveType,
-                replacement_employee: replacementEmployee
-            })
-        });
-
-        if (!res.ok) {
-            const errData = await res.json();
-            throw new Error(errData.error || "Error");
+        if (!fromDate || !toDate || !returnDate || !replacementEmployee) {
+            alert("Моля, попълнете всички полета.");
+            return;
         }
 
-        alert("Заявлението е записано!");
+        const calculateDays = (from: string, to: string) => {
+            const start = new Date(from);
+            const end = new Date(to);
+            const diff = end.getTime() - start.getTime();
+            return Math.ceil(diff / (1000 * 60 * 60 * 24)) + 1;
+        };
 
-        // clear form
-        setFromDate("");
-        setToDate("");
-        setReturnDate("");
-        setReplacementEmployee("");
-        setLeaveType("Платен");
+        const requestedDays = calculateDays(fromDate, toDate);
 
-        fetchLeaves();
-    } catch (err: any) {
-        alert(err.message || "Грешка при запис");
-    }
-};
+        if (requestedDays > daysInfo.remaining) {
+            alert("Нямате достатъчно дни отпуск!");
+            return;
+        }
 
-const handleLogout = () => {
-    localStorage.removeItem("user");
-    navigate("/");
-};
+        try {
+            const res = await fetch("http://localhost:3000/api/leaves", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    user_id: user.id,
+                    from_date: fromDate,
+                    to_date: toDate,
+                    return_date: returnDate,
+                    leave_type: leaveType,
+                    replacement_employee: replacementEmployee
+                })
+            });
 
-useEffect(() => {
-    if (!user) {
+            if (!res.ok) {
+                const errData = await res.json();
+                throw new Error(errData.error || "Error");
+            }
+
+            alert("Заявлението е записано!");
+
+            // clear form
+            setFromDate("");
+            setToDate("");
+            setReturnDate("");
+            setReplacementEmployee("");
+            setLeaveType("Платен");
+
+            fetchLeaves();
+        } catch (err: any) {
+            alert(err.message || "Грешка при запис");
+        }
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem("user");
         navigate("/");
-    } else {
-        fetchLeaves();
-    }
-}, [user, navigate]);
+    };
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/");
+        } else {
+            fetchLeaves();
+            fetchDays();
+        }
+    }, [user, navigate]);
 
 return (
     <div className="page-wrapper">
@@ -151,7 +184,7 @@ return (
                             <strong className="d-block mb-2">
                                 Полагаеми дни отпуск:
                             </strong>
-                            <span className="count-number">30</span>
+                            <span className="count-number">{daysInfo.total}</span>
                         </div>
                     </div>
 
@@ -160,7 +193,7 @@ return (
                             <strong className="d-block mb-2">
                                 Оставащи дни отпуск:
                             </strong>
-                            <span className="count-number">30</span>
+                            <span className="count-number">{daysInfo.remaining}</span>
                         </div>
                     </div>
                 </div>

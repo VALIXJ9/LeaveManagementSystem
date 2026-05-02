@@ -93,3 +93,60 @@ export const deleteLeaveRequest = async (req: Request, res: Response) => {
         res.status(500).json({ error: "Failed to delete leave request" });
     }
 };
+
+// Calculates the number of days between two dates (inclusive)
+const calculateDays = (from: Date, to: Date) => {
+    const diff = to.getTime() - from.getTime();
+    return Math.ceil(diff / (1000 * 60 * 60 * 24)) + 1;
+};
+
+// Returns the remaining annual leave days for a user
+// based on their yearly quota minus all approved leave days
+// within the current calendar year
+export const getRemainingDays = async (req: Request, res: Response) => {
+    try {
+        const userId = Number(req.params.userId);
+
+        // 👇 get user quota
+        const user = await prisma.user.findUnique({
+            where: { id: userId }
+        });
+
+        if (!user) return res.status(404).json({ error: "User not found" });
+
+        // 👇 filter ONLY current year
+        const startOfYear = new Date(new Date().getFullYear(), 0, 1);
+        const endOfYear = new Date(new Date().getFullYear(), 11, 31);
+
+        const approvedLeaves = await prisma.leaveRequest.findMany({
+            where: {
+                user_id: userId,
+                status: "Approved",
+                from_date: {
+                    gte: startOfYear,
+                    lte: endOfYear
+                }
+            }
+        });
+
+        let usedDays = 0;
+
+        approvedLeaves.forEach(l => {
+            usedDays += calculateDays(
+                new Date(l.from_date),
+                new Date(l.to_date)
+            );
+        });
+
+        const remaining = user.yearly_quota - usedDays;
+
+        res.json({
+            total: user.yearly_quota,
+            used: usedDays,
+            remaining
+        });
+
+    } catch {
+        res.status(500).json({ error: "Failed to calculate days" });
+    }
+};

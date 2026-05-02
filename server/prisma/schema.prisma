@@ -13,13 +13,15 @@ datasource db {
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
-  first_name String
-  last_name  String
-  email      String   @unique
-  password   String
-  is_admin   Boolean  @default(false)
-  created_at DateTime @default(now())
+  id             Int      @id @default(autoincrement())
+  first_name     String
+  last_name      String
+  email          String   @unique
+  password       String
+  is_admin       Boolean  @default(false)
+  created_at     DateTime @default(now())
+
+  yearly_quota   Int      @default(30)
 
   leave_requests LeaveRequest[]
 }
